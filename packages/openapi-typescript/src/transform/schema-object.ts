@@ -98,6 +98,7 @@ export function transformSchemaObjectWithComposition(
       let enumName = parseRef(options.path ?? "").pointer.join("/");
       // allow #/components/schemas to have simpler names
       enumName = enumName.replace("components/schemas", "");
+      enumName = schemaObject["x-enum-name"] ?? enumName;
       const metadata = schemaObject.enum.map((_, i) => ({
         name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
         description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],

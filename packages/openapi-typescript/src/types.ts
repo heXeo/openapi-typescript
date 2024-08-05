@@ -664,6 +664,8 @@ export interface OpenAPITSOptions {
   redocly?: RedoclyConfig;
   /** Inject arbitrary TypeScript types into the start of the file */
   inject?: string;
+  /** Generate fully dereferenced bundle */
+  dereferenced?: boolean;
 }
 
 /** Context passed to all submodules */

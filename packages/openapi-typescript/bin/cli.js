@@ -30,6 +30,7 @@ Options
   --path-params-as-types     Convert paths to template literal types
   --alphabetize              Sort object keys alphabetically
   --exclude-deprecated       Exclude deprecated types
+  --dereferenced, -d          Generate fully dereferenced bundle
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -74,12 +75,14 @@ const flags = parser(args, {
     "help",
     "immutable",
     "pathParamsAsTypes",
+    "dereferenced",
   ],
   string: ["output", "redocly"],
   alias: {
     redocly: ["c"],
     exportType: ["t"],
     output: ["o"],
+    dereferenced: ["d"],
   },
 });
 
@@ -135,6 +138,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       pathParamsAsTypes: flags.pathParamsAsTypes,
       redocly,
       silent,
+      dereferenced: flags.dereferenced,
     }),
   )}`;
 }

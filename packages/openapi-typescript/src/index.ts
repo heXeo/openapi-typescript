@@ -64,6 +64,7 @@ export default async function openapiTS(
     redoc,
     cwd: options.cwd instanceof URL ? options.cwd : new URL(`file://${options.cwd ?? process.cwd()}/`),
     silent: options.silent ?? false,
+    dereferenced: options.dereferenced,
   });
 
   const ctx: GlobalContext = {

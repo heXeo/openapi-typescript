@@ -18,6 +18,7 @@ export interface ValidateAndBundleOptions {
   redoc: RedoclyConfig;
   silent: boolean;
   cwd?: URL;
+  dereferenced?: boolean;
 }
 
 interface ParseSchemaOptions {
@@ -130,6 +131,9 @@ export async function validateAndBundle(
   if (problems.length) {
     let errorMessage: string | undefined = undefined;
     for (const problem of problems) {
+      if (problem.ignored === true) {
+        continue;
+      }
       if (problem.severity === "error") {
         errorMessage = problem.message;
         error(problem.message);
@@ -147,7 +151,7 @@ export async function validateAndBundle(
   const redocBundleT = performance.now();
   const bundled = await bundle({
     config: options.redoc,
-    dereference: false,
+    dereference: options.dereferenced ?? false,
     doc: document,
   });
   if (bundled.problems.length) {
